@@ -2,6 +2,8 @@ package com.kapitanov.springTaxCalculator.Controllers;
 
 import java.math.BigDecimal;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,8 +26,11 @@ public class Controller {
 		return null;
 	}
 	@RequestMapping(method = RequestMethod.POST)
-	public UserData postData(@RequestParam("email") String email, @RequestParam("amount") BigDecimal amount, @RequestParam("taxYear") String taxYear) {
-		UserData userToStore = new UserData(email,amount,taxYear);
+	public UserData postData(@RequestParam("email") String email,
+							@RequestParam("amount") BigDecimal amount, 
+							@RequestParam("taxYear") String taxYear,
+							HttpServletRequest request) {
+		UserData userToStore = new UserData(email,amount,taxYear, request.getRemoteAddr());
 		userDao.save(userToStore);
 		return userToStore;
 	}

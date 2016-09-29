@@ -23,6 +23,8 @@ public class UserData {
 	private BigDecimal amount;
 	@NotNull
 	private String taxYear;
+	@NotNull
+	private String ip;
 	
 	public UserData() {
 		
@@ -32,10 +34,22 @@ public class UserData {
 		this.id = id;
 	}
 	
-	public UserData(String email, BigDecimal amount, String taxYear) {
+	public UserData(String email, BigDecimal amount, String taxYear, String ip) {
 		this.email = email;
 		this.amount = amount;
 		this.taxYear = taxYear;
+		this.ip = ip;
+	}
+	
+	
+	
+
+	public String getIp() {
+		return ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
 	}
 
 	public long getId() {
