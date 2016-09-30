@@ -12,26 +12,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kapitanov.springTaxCalculator.Dao.UserDataDao;
 import com.kapitanov.springTaxCalculator.Model.UserData;
+import com.kapitanov.springTaxCalculator.Services.TaxCalculatorService;
 
 @RestController
 @RequestMapping("/tax-calculator")
 public class Controller {
 	
 	@Autowired
-	private UserDataDao userDao;
+	private TaxCalculatorService taxCalcService;
 	
 	@RequestMapping(method = RequestMethod.GET, headers = "Accept=application/json")
-	public String getTaxCalc() {
-		userDao.findAll();
+	public String getTaxCalc(@RequestParam("id") long id) {
+		taxCalcService.findById(id);
 		return null;
 	}
 	@RequestMapping(method = RequestMethod.POST)
-	public UserData postData(@RequestParam("email") String email,
+	public void postData(@RequestParam("email") String email,
 							@RequestParam("amount") BigDecimal amount, 
 							@RequestParam("taxYear") String taxYear,
 							HttpServletRequest request) {
-		UserData userToStore = new UserData(email,amount,taxYear, request.getRemoteAddr());
-		userDao.save(userToStore);
-		return userToStore;
+		taxCalcService.save(email,taxYear,amount,request.getRemoteAddr());
 	}
 }
