@@ -6,9 +6,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CalculatorImpl implements Calculator {
-	private static final BigDecimal PERCENTAGE_TIER_ONE = new BigDecimal("0.20");
-	private static final BigDecimal PERCENTAGE_TIER_TWO = new BigDecimal("0.40");
-	private static final BigDecimal PERCENTAGE_TIER_THREE = new BigDecimal("0.45");
+	public static final BigDecimal PERCENTAGE_TIER_ONE = new BigDecimal("0.20");
+	public static final BigDecimal PERCENTAGE_TIER_TWO = new BigDecimal("0.40");
+	public static final BigDecimal PERCENTAGE_TIER_THREE = new BigDecimal("0.45");
 
 	@Override
 	public BigDecimal netAmount(String yearEnd, BigDecimal grossAmount) {
@@ -22,8 +22,10 @@ public class CalculatorImpl implements Calculator {
 			BigDecimal finalTier = new BigDecimal("200000");
 			
 			if (grossAmount.compareTo(firstTier) == -1) {
+				
 				finalAmount = grossAmount;
-			} else if ( grossAmount.compareTo(firstTier) == 1 && 
+				
+			} else if (grossAmount.compareTo(firstTier) == 1 && 
 						(grossAmount.compareTo(secondTier) == 0 ||
 						grossAmount.compareTo(secondTier) == -1) ) {
 				
