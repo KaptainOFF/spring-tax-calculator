@@ -7,7 +7,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "userData")
@@ -18,10 +21,13 @@ public class UserData {
 	private long id;
 	
 	@NotNull
+	@Pattern(regexp = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$")
 	private String email;
-	@NotNull
+	@DecimalMin("0")
+	@DecimalMax("200000")
 	private BigDecimal amount;
 	@NotNull
+	@Pattern(regexp = "^[0-9]{4}/[0-9]{4}")
 	private String taxYear;
 	@NotNull
 	private String ip;
@@ -41,9 +47,6 @@ public class UserData {
 		this.ip = ip;
 	}
 	
-	
-	
-
 	public String getIp() {
 		return ip;
 	}
