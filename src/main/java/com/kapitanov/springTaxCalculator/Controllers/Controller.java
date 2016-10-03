@@ -3,12 +3,11 @@ package com.kapitanov.springTaxCalculator.Controllers;
 import java.math.BigDecimal;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,16 +25,24 @@ public class Controller {
 	@Autowired
 	private TaxCalculatorService taxCalcService;
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
-	public UserData getInstance(@PathVariable long id) {
+	public ResponseEntity<UserData> getInstance(@PathVariable long id) {
 		UserData user = taxCalcService.findById(id);
-		return user;
+		if (user == null) {
+			return new ResponseEntity<UserData>(HttpStatus.NOT_FOUND);
+		}
+		return ResponseEntity.ok(user);
 	}
 	@RequestMapping(method = RequestMethod.POST)
-	public void postData(@Validated @RequestParam("email") String email,
+	public ResponseEntity<UserData> postData(@Validated @RequestParam("email") String email,
 						@Validated @RequestParam("amount") BigDecimal amount,
 						@Validated @RequestParam("taxYear") String taxYear,
 						@Validated HttpServletRequest request) {
-		taxCalcService.save(email,taxYear,amount,request.getRemoteAddr());
+		Long id = taxCalcService.save(email,taxYear,amount,request.getRemoteAddr());
+		if (taxCalcService.findById(id) == null) {
+			return new ResponseEntity<UserData>(HttpStatus.BAD_REQUEST);
+		}
+		return ResponseEntity.ok(taxCalcService.findById(id));
 	}
 }
