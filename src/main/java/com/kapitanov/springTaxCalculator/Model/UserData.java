@@ -27,7 +27,9 @@ public class UserData {
 	private String email;
 	@DecimalMin("0")
 	@DecimalMax("200000")
-	private BigDecimal amount;
+	private BigDecimal takeHomePay;
+	@NotNull
+	private BigDecimal tax;
 	@NotNull
 	@Pattern(regexp = "^[0-9]{4}/[0-9]{4}")
 	private String taxYear;
@@ -42,9 +44,10 @@ public class UserData {
 		this.id = id;
 	}
 	
-	public UserData(String email, BigDecimal amount, String taxYear, String ip) {
+	public UserData(String email, BigDecimal tax, BigDecimal amount, String taxYear, String ip) {
 		this.email = email;
-		this.amount = amount;
+		this.takeHomePay = amount;
+		this.tax = tax;
 		this.taxYear = taxYear;
 		this.ip = ip;
 	}
@@ -72,10 +75,10 @@ public class UserData {
 		this.email = email;
 	}
 	public BigDecimal getAmount() {
-		return amount;
+		return takeHomePay;
 	}
 	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
+		this.takeHomePay = amount;
 	}
 	public String getTaxYear() {
 		return taxYear;
@@ -83,5 +86,14 @@ public class UserData {
 	public void setTaxYear(String taxYear) {
 		this.taxYear = taxYear;
 	}
+
+	public BigDecimal getTax() {
+		return tax;
+	}
+
+	public void setTax(BigDecimal tax) {
+		this.tax = tax;
+	}
+	
 	
 }

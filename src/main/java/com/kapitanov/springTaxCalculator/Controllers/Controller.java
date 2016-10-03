@@ -3,7 +3,7 @@ package com.kapitanov.springTaxCalculator.Controllers;
 import java.math.BigDecimal;
 
 import javax.servlet.http.HttpServletRequest;
-
+import javax.validation.ConstraintViolationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,7 +25,6 @@ public class Controller {
 	@Autowired
 	private TaxCalculatorService taxCalcService;
 	
-	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
 	public ResponseEntity<UserData> getInstance(@PathVariable long id) {
 		UserData user = taxCalcService.findById(id);
@@ -36,13 +35,14 @@ public class Controller {
 	}
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<UserData> postData(@Validated @RequestParam("email") String email,
-						@Validated @RequestParam("amount") BigDecimal amount,
+						@Validated @RequestParam("amount") BigDecimal takeHomePay,
 						@Validated @RequestParam("taxYear") String taxYear,
 						@Validated HttpServletRequest request) {
-		Long id = taxCalcService.save(email,taxYear,amount,request.getRemoteAddr());
-		if (taxCalcService.findById(id) == null) {
+		try {
+			Long id = taxCalcService.save(email,taxYear,takeHomePay,request.getRemoteAddr());
+			return ResponseEntity.ok(taxCalcService.findById(id));
+		} catch (ConstraintViolationException cve) {
 			return new ResponseEntity<UserData>(HttpStatus.BAD_REQUEST);
 		}
-		return ResponseEntity.ok(taxCalcService.findById(id));
 	}
 }
