@@ -12,6 +12,8 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+import org.hibernate.validator.constraints.Email;
+
 @Entity
 @Table(name = "userData")
 public class UserData {
@@ -21,7 +23,7 @@ public class UserData {
 	private long id;
 	
 	@NotNull
-	@Pattern(regexp = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$")
+	@Email
 	private String email;
 	@DecimalMin("0")
 	@DecimalMax("200000")
