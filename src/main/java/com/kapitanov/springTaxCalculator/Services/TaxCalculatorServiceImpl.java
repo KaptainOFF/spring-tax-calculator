@@ -11,7 +11,7 @@ import com.kapitanov.springTaxCalculator.Model.UserData;
 
 @Service
 public class TaxCalculatorServiceImpl implements TaxCalculatorService {
-	
+
 	@Autowired
 	private UserDataDao userDao;
 	@Autowired
@@ -34,7 +34,7 @@ public class TaxCalculatorServiceImpl implements TaxCalculatorService {
 	@Override
 	public void delete(UserData user) {
 		userDao.delete(user);
-		
+
 	}
 
 }
