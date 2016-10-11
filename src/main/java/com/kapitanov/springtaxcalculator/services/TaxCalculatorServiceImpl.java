@@ -1,13 +1,13 @@
-package com.kapitanov.springTaxCalculator.Services;
+package com.kapitanov.springtaxcalculator.services;
 
 import java.math.BigDecimal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kapitanov.springTaxCalculator.Calculator.Calculator;
-import com.kapitanov.springTaxCalculator.Dao.UserDataDao;
-import com.kapitanov.springTaxCalculator.Model.UserData;
+import com.kapitanov.springtaxcalculator.calculator.Calculator;
+import com.kapitanov.springtaxcalculator.dao.UserDataDao;
+import com.kapitanov.springtaxcalculator.model.UserData;
 
 @Service
 public class TaxCalculatorServiceImpl implements TaxCalculatorService {

@@ -1,8 +1,8 @@
-package com.kapitanov.springTaxCalculator.Services;
+package com.kapitanov.springtaxcalculator.services;
 
 import java.math.BigDecimal;
 
-import com.kapitanov.springTaxCalculator.Model.UserData;
+import com.kapitanov.springtaxcalculator.model.UserData;
 
 public interface TaxCalculatorService {
 	

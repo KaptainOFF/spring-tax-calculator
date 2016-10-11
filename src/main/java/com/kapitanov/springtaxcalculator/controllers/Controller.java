@@ -1,4 +1,4 @@
-package com.kapitanov.springTaxCalculator.Controllers;
+package com.kapitanov.springtaxcalculator.controllers;
 
 import java.math.BigDecimal;
 
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kapitanov.springTaxCalculator.Model.UserData;
-import com.kapitanov.springTaxCalculator.Services.TaxCalculatorService;
+import com.kapitanov.springtaxcalculator.model.UserData;
+import com.kapitanov.springtaxcalculator.services.TaxCalculatorService;
 
 @RestController
 @RequestMapping("/tax-calculator")

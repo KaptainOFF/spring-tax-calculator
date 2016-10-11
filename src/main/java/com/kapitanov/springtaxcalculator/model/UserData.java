@@ -1,4 +1,4 @@
-package com.kapitanov.springTaxCalculator.Model;
+package com.kapitanov.springtaxcalculator.model;
 
 import java.math.BigDecimal;
 

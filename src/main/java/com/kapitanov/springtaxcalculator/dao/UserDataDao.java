@@ -1,9 +1,9 @@
-package com.kapitanov.springTaxCalculator.Dao;
+package com.kapitanov.springtaxcalculator.dao;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.kapitanov.springTaxCalculator.Model.UserData;
+import com.kapitanov.springtaxcalculator.model.UserData;
 
 @Transactional
 public interface UserDataDao extends CrudRepository<UserData, Long>{

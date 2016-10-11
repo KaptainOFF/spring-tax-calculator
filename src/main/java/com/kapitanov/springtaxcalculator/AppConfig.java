@@ -1,4 +1,4 @@
-package com.kapitanov.springTaxCalculator;
+package com.kapitanov.springtaxcalculator;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
