@@ -1,19 +1,19 @@
 package com.kapitanov.springtaxcalculator.controllers;
 
-import java.math.BigDecimal;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.ConstraintViolationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,19 +36,17 @@ public class Controller {
 		return ResponseEntity.ok(user);
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<UserData> postData(@Validated @RequestParam("email") String email,
-			@Validated @RequestParam("amount") BigDecimal takeHomePay,
-			@Validated @RequestParam("taxYear") String taxYear, @Validated HttpServletRequest request) {
-
-		Long id = taxCalcService.save(email, taxYear, takeHomePay, request.getRemoteAddr());
+	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json")
+	public ResponseEntity<UserData> postData(@Validated @RequestBody UserData user, HttpServletRequest req) {
+		Long id = taxCalcService.save(user);
+		user.setIp(req.getRemoteAddr());
 		return ResponseEntity.ok(taxCalcService.findById(id));
-
 	}
 
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
-	@ExceptionHandler(ConstraintViolationException.class)
-	public String handleValidationException(ConstraintViolationException cve) {
-		return cve.getMessage();
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public FieldError handleValidationException(MethodArgumentNotValidException manve) {
+		BindingResult result = manve.getBindingResult();
+		return result.getFieldError();
 	}
 }

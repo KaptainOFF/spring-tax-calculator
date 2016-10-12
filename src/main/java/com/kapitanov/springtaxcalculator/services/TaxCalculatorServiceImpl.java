@@ -23,10 +23,11 @@ public class TaxCalculatorServiceImpl implements TaxCalculatorService {
 	}
 
 	@Override
-	public Long save(String email, String taxYear, BigDecimal amount, String ip) {
-		BigDecimal takeHomePay = calculator.netAmount(taxYear, amount);
-		BigDecimal tax = amount.subtract(takeHomePay);
-		UserData user = new UserData(email,tax, takeHomePay,taxYear,ip);
+	public Long save(UserData user) {
+		BigDecimal takeHomePay = calculator.netAmount(user.getTaxYear(), user.getGrossAmount());
+		BigDecimal tax = user.getGrossAmount().subtract(takeHomePay);
+		user.setTakeHomePay(takeHomePay);
+		user.setTax(tax);
 		userDao.save(user);
 		return user.getId();
 	}
