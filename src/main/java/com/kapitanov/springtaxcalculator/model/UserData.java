@@ -22,22 +22,23 @@ public class UserData {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	@NotNull
-	@Email
+	@NotNull(message = "error.email.notnull")
+	@Email(message = "error.email.format")
 	private String email;
+
 	@DecimalMin("0")
 	@DecimalMax("200000")
 	private BigDecimal takeHomePay;
 
-	@NotNull
+	@NotNull(message = "error.grossamount.notnull")
 	@DecimalMin("0")
 	@DecimalMax("200000")
 	private BigDecimal grossAmount;
 
 	private BigDecimal tax;
 
-	@NotNull
-	@Pattern(regexp = "^[0-9]{4}/[0-9]{4}")
+	@NotNull(message = "error.taxyear.notnull")
+	@Pattern(regexp = "^[0-9]{4}/[0-9]{4}", message = "error.taxyear.format")
 	private String taxYear;
 
 	private String ip;

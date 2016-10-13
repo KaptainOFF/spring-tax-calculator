@@ -1,4 +1,4 @@
-package com.kapitanov.springTaxCalculator;
+package com.kapitanov.springtaxcalculator;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
