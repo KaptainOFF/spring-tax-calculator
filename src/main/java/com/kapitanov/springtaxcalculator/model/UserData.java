@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
@@ -26,13 +27,14 @@ public class UserData {
 	@Email(message = "error.email.format")
 	private String email;
 
-	@DecimalMin("0")
-	@DecimalMax("200000")
+	@DecimalMin(value = "0", message = "error.grossamount.minimumvalue")
+	@DecimalMax(value = "200000", message = "error.grossamount.maximumvalue")
 	private BigDecimal takeHomePay;
 
 	@NotNull(message = "error.grossamount.notnull")
-	@DecimalMin("0")
-	@DecimalMax("200000")
+	@DecimalMin(value = "0", message = "error.grossamount.minimumvalue")
+	@DecimalMax(value = "200000", message = "error.grossamount.maximumvalue")
+	@Digits(fraction = 2, integer = 6, message = "error.grossamount.value")
 	private BigDecimal grossAmount;
 
 	private BigDecimal tax;
